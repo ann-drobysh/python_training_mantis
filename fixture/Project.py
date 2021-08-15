@@ -1,5 +1,5 @@
 from model.project import Project
-
+import time
 
 class ProjectHelper:
     def __init__(self, app):
@@ -30,6 +30,7 @@ class ProjectHelper:
         wd = self.app.wd
         self.open_manage_projects_page()
         self.open_project_by_id(id)
+        #time.sleep(5)
         wd.find_element_by_xpath("//input[@value='Delete Project']").click()
         wd.find_elements_by_xpath("//*[contains(text(), 'Are you sure you want to delete this project')]")
         wd.find_element_by_xpath("//input[@value='Delete Project']").click()
@@ -40,7 +41,7 @@ class ProjectHelper:
         for element in wd.find_elements_by_xpath("//tr[contains(@class, 'row-')][not(contains(@class, 'category'))][not(ancestor::a)]/."):
             url_with_id = element.find_element_by_xpath("td[1]/a").get_attribute("href")
             actual_id = url_with_id.split('=')[-1]
-            if actual_id == id:
+            if actual_id == str(id):
                 element.find_element_by_xpath("td[1]/a").click()
                 break
 
